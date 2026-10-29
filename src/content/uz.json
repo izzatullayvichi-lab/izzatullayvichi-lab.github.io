@@ -10,7 +10,6 @@
   "ui": {
     "skip": "Asosiy mazmunga o'tish",
     "menu": "Menyu",
-    "theme": "Mavzuni almashtirish",
     "language": "Til",
     "top": "Tepaga",
     "rights": "Barcha huquqlar himoyalangan."
@@ -30,7 +29,14 @@
     "tagline": "Ta'lim orqali bilim, huquq orqali tartib, ma'naviyat orqali kelajak.",
     "ctaContact": "Bog'lanish",
     "ctaAbout": "Tanishish",
-    "scroll": "Pastga"
+    "scroll": "Pastga",
+    "marquee": [
+      "Pedagogika",
+      "Huquq",
+      "Ma'naviyat",
+      "Ta'lim",
+      "Davlat boshqaruvi"
+    ]
   },
   "about": {
     "kicker": "Men haqimda",
@@ -42,18 +48,42 @@
     "kicker": "Yo'nalishlar",
     "title": "Qiziqish va faoliyat doirasi",
     "items": [
-      { "t": "Pedagogika va ta'lim", "d": "Zamonaviy ta'lim usullari, o'quvchi va talabalar bilan ishlash, tarbiyaviy yondashuvlar." },
-      { "t": "Huquqiy madaniyat", "d": "Huquqiy ongni oshirish, huquqiy bilimlarni sodda va tushunarli yetkazish." },
-      { "t": "Davlat boshqaruvi huquqi", "d": "Davlat organlari faoliyati va boshqaruvni huquqiy tartibga solish masalalari." },
-      { "t": "Milliy g'oya va ma'naviyat", "d": "Milliy qadriyatlar, ma'naviy-axloqiy tarbiya va yoshlar bilan ishlash." }
+      {
+        "t": "Pedagogika va ta'lim",
+        "d": "Zamonaviy ta'lim usullari, o'quvchi va talabalar bilan ishlash, tarbiyaviy yondashuvlar."
+      },
+      {
+        "t": "Huquqiy madaniyat",
+        "d": "Huquqiy ongni oshirish, huquqiy bilimlarni sodda va tushunarli yetkazish."
+      },
+      {
+        "t": "Davlat boshqaruvi huquqi",
+        "d": "Davlat organlari faoliyati va boshqaruvni huquqiy tartibga solish masalalari."
+      },
+      {
+        "t": "Milliy g'oya va ma'naviyat",
+        "d": "Milliy qadriyatlar, ma'naviy-axloqiy tarbiya va yoshlar bilan ishlash."
+      }
     ]
   },
   "education": {
     "kicker": "Ta'lim",
     "title": "Akademik yo'l",
     "items": [
-      { "year": "2025", "degree": "Magistr", "school": "Toshkent davlat yuridik universiteti", "field": "Davlat boshqaruvi huquqi" },
-      { "year": "2024", "degree": "Bakalavr", "school": "Mirzo Ulug'bek nomidagi O'zbekiston Milliy universiteti", "field": "Milliy g'oya, ma'naviyat asoslari va huquq" }
+      {
+        "year": "2025",
+        "degree": "Magistr",
+        "school": "Toshkent davlat yuridik universiteti",
+        "field": "Davlat boshqaruvi huquqi",
+        "short": "TDYU"
+      },
+      {
+        "year": "2024",
+        "degree": "Bakalavr",
+        "school": "Mirzo Ulug'bek nomidagi O'zbekiston Milliy universiteti",
+        "field": "Milliy g'oya, ma'naviyat asoslari va huquq",
+        "short": "O'zMU"
+      }
     ]
   },
   "publications": {

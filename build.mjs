@@ -92,6 +92,12 @@ function page(lang) {
     ['contact', true],
   ].filter(([, on]) => on);
 
+  let secNo = 0;
+  const sectionHead = (k, extra = '') => {
+    secNo += 1;
+    return `<header class="sec-head reveal"><p class="kicker" aria-label="${esc(t[k].kicker)}"><b>${String(secNo).padStart(2, '0')}</b><span class="scr" data-t="${esc(t[k].kicker)}">${esc(t[k].kicker)}</span></p><h2>${esc(t[k].title)}</h2>${extra}</header>`;
+  };
+
   const list = (items) =>
     items
       .map((it) => {
@@ -100,7 +106,7 @@ function page(lang) {
         const open = it.url
           ? `<a class="row-link" href="${esc(it.url)}" target="_blank" rel="noopener">${esc(t.publications.open)} ${icon.arrow}</a>`
           : '';
-        return `<li class="row reveal"><span class="row-year">${esc(it.year ?? '')}</span><div class="row-body"><h3>${esc(title)}</h3><p>${esc(meta)}</p></div>${open}</li>`;
+        return `<li class="row glass reveal"><span class="row-year">${esc(it.year ?? '')}</span><div class="row-body"><h3>${esc(title)}</h3><p>${esc(meta)}</p></div>${open}</li>`;
       })
       .join('');
 
@@ -126,14 +132,14 @@ function page(lang) {
   };
 
   const head = `<!doctype html>
-<html lang="${lang}" data-theme-pref>
+<html lang="${lang}">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(t.meta.title)}</title>
 <meta name="description" content="${esc(t.meta.description)}">
-<meta name="theme-color" content="#08130f">
-<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#050a08">
+<meta name="color-scheme" content="dark">
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="${base}manifest.webmanifest">
 ${siteUrl ? `<link rel="canonical" href="${abs(lang)}">` : ''}
@@ -144,17 +150,17 @@ ${siteUrl ? LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${abs(
 <meta property="og:locale" content="${t.locale}">
 ${siteUrl ? `<meta property="og:url" content="${abs(lang)}">` : ''}
 ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.png">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta name="twitter:card" content="summary_large_image">` : '<meta name="twitter:card" content="summary">'}
-<link rel="preload" href="${base}assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${base}assets/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${base}assets/fonts/manrope-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${base}assets/portrait-cut.webp" as="image" type="image/webp">
 <link rel="stylesheet" href="${base}assets/style.css">
-<script>try{var s=localStorage.getItem('theme');if(s==='light'||s==='dark')document.documentElement.dataset.theme=s}catch(e){}</script>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>`;
 
   const header = `
 <a class="skip" href="#main">${esc(t.ui.skip)}</a>
-<header class="header is-top" id="header">
-  <div class="wrap header-in">
+<header class="header" id="header">
+  <div class="header-in glass">
     <a class="brand" href="#top" aria-label="${esc(t.name)}">
       <svg viewBox="-120 -120 240 240" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="7">${star(104).replace(/ pathLength="1"/g, '')}</g></svg>
       <span>${esc(t.initials)}</span>
@@ -166,63 +172,73 @@ ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.pn
       <div class="langs" role="group" aria-label="${esc(t.ui.language)}">
         ${LANGS.map((l) => `<a href="${href(l)}" hreflang="${l}" data-lang="${l}"${l === lang ? ' aria-current="true"' : ''}>${LANG_LABEL[l]}</a>`).join('')}
       </div>
-      <button class="icon-btn" id="theme" type="button" aria-label="${esc(t.ui.theme)}"><span class="i-sun">${icon.sun}</span><span class="i-moon">${icon.moon}</span></button>
-      <button class="icon-btn burger" id="burger" type="button" aria-label="${esc(t.ui.menu)}" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
+      <button class="burger" id="burger" type="button" aria-label="${esc(t.ui.menu)}" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
     </div>
   </div>
 </header>`;
 
+  const chips = t.education.items
+    .map((it, i) => `<div class="chip rise" style="--d:${1.5 + i * 0.18}s"><i></i><div><b>${esc(it.degree)} · ${esc(it.year)}</b><span>${esc(it.short)}</span></div></div>`)
+    .join('');
+
   const hero = `
 <section class="hero" id="top">
-  ${patternSvg}
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="wrap hero-in">
-    <div class="hero-text">
-      <p class="eyebrow rise" style="--d:.15s"><span class="dash"></span>${esc(t.hero.eyebrow)}</p>
-      <h1 class="name">
-        <span class="line"><span class="rise" style="--d:.3s">${esc(first)}</span></span>
-        <span class="line"><span class="rise" style="--d:.45s"><em>${esc(last)}</em></span></span>
+  <div class="hero-in">
+    <div class="scene" id="scene">
+      <h1 class="name" aria-label="${esc(t.name)}">
+        <span class="n1 rise" style="--d:.25s" aria-hidden="true">${esc(first)}</span>
+        <span class="n2 rise" style="--d:.55s" aria-hidden="true">${esc(last)}</span>
       </h1>
-      <p class="role rise" style="--d:.65s">${esc(t.hero.role)}</p>
-      <p class="tagline rise" style="--d:.8s">${esc(t.hero.tagline)}</p>
-      <div class="cta rise" style="--d:.95s">
-        <a class="btn btn-gold" href="#contact">${esc(t.hero.ctaContact)} ${icon.arrow}</a>
-        <a class="btn btn-ghost" href="#about">${esc(t.hero.ctaAbout)}</a>
+      <div class="stage" id="stage">
+        <div class="halo"></div>
+        ${heroOrnament}
+        <div class="portrait">
+          <img src="${base}assets/portrait-cut.webp" width="980" height="1264" alt="${esc(t.a11y.photo)}" fetchpriority="high">
+          <i class="scan"></i>
+        </div>
+        <i class="hud tl"></i><i class="hud tr"></i><i class="hud bl"></i><i class="hud br"></i>
+      </div>
+      <div class="fade-b"></div>
+    </div>
+    <div class="hero-left">
+      <p class="eyebrow rise" style="--d:1s"><span class="dash"></span>${esc(t.hero.eyebrow)}</p>
+      <p class="role rise" style="--d:1.1s">${esc(t.hero.role)}</p>
+      <p class="tagline rise" style="--d:1.2s">${esc(t.hero.tagline)}</p>
+      <div class="cta rise" style="--d:1.3s">
+        <a class="btn btn-gold magnet" href="#contact"><span>${esc(t.hero.ctaContact)}</span> ${icon.arrow}</a>
+        <a class="btn btn-ghost magnet" href="#about"><span>${esc(t.hero.ctaAbout)}</span></a>
       </div>
     </div>
-    <div class="hero-visual">
-      ${heroOrnament}
-      <figure class="arch rise" style="--d:.4s">
-        <picture>
-          <source srcset="${base}assets/portrait.webp" type="image/webp">
-          <img src="${base}assets/portrait.jpg" width="900" height="1160" alt="${esc(t.a11y.photo)}" fetchpriority="high">
-        </picture>
-      </figure>
-    </div>
+    <div class="hero-right">${chips}</div>
+    <a class="scroll" href="#about" aria-label="${esc(t.hero.scroll)}"><span>${esc(t.hero.scroll)}</span><i></i></a>
   </div>
-  <a class="scroll" href="#about" aria-label="${esc(t.hero.scroll)}"><span>${esc(t.hero.scroll)}</span><i></i></a>
-</section>`;
-
-  const sectionHead = (k, extra = '') =>
-    `<header class="sec-head reveal"><p class="kicker"><span class="dash"></span>${esc(t[k].kicker)}</p><h2>${esc(t[k].title)}</h2>${extra}</header>`;
+</section>
+<div class="mq-wrap" aria-hidden="true"><div class="marquee">
+  <div class="mq-track">${[0, 1].map(() => `<div class="mq-row">${[...t.hero.marquee, ...t.hero.marquee].map((w, i) => `<span class="${i % 2 ? 'o' : ''}">${esc(w)}</span><em>${star(10).replace(/ pathLength="1"/g, '').replace(/^/, '<svg viewBox="-12 -12 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.2">').concat('</svg>')}</em>`).join('')}</div>`).join('')}</div>
+</div></div>`;
 
   const about = `
 <section class="sec" id="about">
   <div class="wrap about">
-    ${sectionHead('about')}
-    <div class="about-body reveal">
-      <p class="lead">${esc(t.about.p1)}</p>
-      <p>${esc(t.about.p2)}</p>
+    <figure class="photo reveal" id="photo">
+      <img src="${base}assets/office.webp" width="1500" height="1000" alt="" loading="lazy">
+      <i class="hud tl"></i><i class="hud tr"></i><i class="hud bl"></i><i class="hud br"></i>
+      <figcaption><span class="dot"></span>${esc(t.name)}</figcaption>
+    </figure>
+    <div class="about-body">
+      ${sectionHead('about').replace(/<h2>.*?<\/h2>/, `<h2>${esc(t.about.title)}</h2>`)}
+      <p class="lead reveal">${esc(t.about.p1)}</p>
+      <p class="reveal">${esc(t.about.p2)}</p>
     </div>
   </div>
 </section>`;
 
   const focus = `
-<section class="sec sec-alt" id="focus">
+<section class="sec" id="focus">
   <div class="wrap">
     ${sectionHead('focus')}
-    <ul class="cards">
-      ${t.focus.items.map((it, i) => `<li class="card reveal" style="--i:${i}"><span class="num">0${i + 1}</span><h3>${esc(it.t)}</h3><p>${esc(it.d)}</p></li>`).join('')}
+    <ul class="bento">
+      ${t.focus.items.map((it, i) => `<li class="card glass spot reveal" style="--i:${i}"><span class="num">0${i + 1}</span><svg class="card-orn" viewBox="-120 -120 240 240" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2">${star(100 - i * 14, i * 11.25).replace(/ pathLength="1"/g, '')}<circle r="${40 + i * 6}"/></g></svg><h3>${esc(it.t)}</h3><p>${esc(it.d)}</p></li>`).join('')}
     </ul>
   </div>
 </section>`;
@@ -231,30 +247,35 @@ ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.pn
 <section class="sec" id="education">
   <div class="wrap">
     ${sectionHead('education')}
-    <ol class="timeline">
-      ${t.education.items.map((it) => `<li class="tl reveal"><span class="tl-year">${esc(it.year)}</span><div><p class="tl-degree">${esc(it.degree)}</p><h3>${esc(it.school)}</h3><p>${esc(it.field)}</p></div></li>`).join('')}
+    <ol class="timeline" id="timeline">
+      <i class="tl-line"><b id="tl-fill"></b></i>
+      ${t.education.items.map((it) => `<li class="tl reveal"><span class="tl-node"></span><span class="tl-year">${esc(it.year)}</span><div class="tl-card glass spot"><p class="tl-degree">${esc(it.degree)}</p><h3>${esc(it.school)}</h3><p>${esc(it.field)}</p></div></li>`).join('')}
     </ol>
   </div>
 </section>`;
 
   const pubs = show.publications
-    ? `<section class="sec sec-alt" id="publications"><div class="wrap">${sectionHead('publications')}<ul class="rows">${list(publications)}</ul></div></section>`
+    ? `<section class="sec" id="publications"><div class="wrap">${sectionHead('publications')}<ul class="rows">${list(publications)}</ul></div></section>`
     : '';
   const awd = show.awards
     ? `<section class="sec" id="awards"><div class="wrap">${sectionHead('awards')}<ul class="rows">${list(awards)}</ul></div></section>`
     : '';
 
+  const handle = site.instagram ? site.instagram.replace(/^https?:\/\/(www\.)?instagram\.com\//, '@').replace(/\/$/, '') : '';
   const blog = show.blog
-    ? `<section class="sec sec-dark" id="blog"><div class="wrap blog reveal"><img class="blog-ava" src="${base}assets/instagram.webp" width="180" height="180" alt="Instagram" loading="lazy"><div class="blog-main">${sectionHead('blog')}<p class="blog-text">${esc(t.blog.text)}</p></div><a class="btn btn-gold" href="${esc(site.instagram)}" target="_blank" rel="noopener">${esc(t.blog.cta)} ${icon.arrow}</a></div></section>`
+    ? `<section class="sec" id="blog"><div class="wrap"><div class="blog glass spot reveal">
+        <div class="blog-ava"><svg viewBox="-120 -120 240 240" aria-hidden="true"><g class="orn-spin">${star(112)}<circle r="116"/></g></svg><img src="${base}assets/instagram.webp" width="180" height="180" alt="Instagram" loading="lazy"></div>
+        <div class="blog-main">${sectionHead('blog')}<p class="blog-handle">${esc(handle)}</p><p class="blog-text">${esc(t.blog.text)}</p></div>
+        <a class="btn btn-gold magnet" href="${esc(site.instagram)}" target="_blank" rel="noopener"><span>${esc(t.blog.cta)}</span> ${icon.arrow}</a>
+      </div></div></section>`
     : '';
 
   const contact = `
-<section class="sec sec-dark contact" id="contact">
-  ${patternSvg}
+<section class="sec contact" id="contact">
   <div class="wrap">
     ${sectionHead('contact', `<p class="contact-text">${esc(t.contact.text)}</p>`)}
     <ul class="links">
-      ${contacts.map(([ic, label, value, url]) => `<li class="reveal"><a class="link" href="${esc(url)}"${url.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}><span class="link-ic">${icon[ic]}</span><span class="link-l">${esc(label)}</span><span class="link-v">${esc(value)}</span><span class="link-a">${icon.arrow}</span></a></li>`).join('')}
+      ${contacts.map(([ic, label, value, url]) => `<li class="reveal"><a class="link spot magnet-lite" href="${esc(url)}"${url.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}><span class="link-ic">${icon[ic]}</span><span class="link-l">${esc(label)}</span><span class="link-v">${esc(value)}</span><span class="link-a">${icon.arrow}</span></a></li>`).join('')}
     </ul>
   </div>
 </section>`;
@@ -274,6 +295,9 @@ ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.pn
   return `${head}
 <body>
 ${redirect}
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="progress" aria-hidden="true"><i id="progress"></i></div>
+<div class="cursor" aria-hidden="true"><i id="cur"></i></div>
 ${header}
 <main id="main">
 ${hero}${about}${focus}${education}${pubs}${awd}${blog}${contact}
@@ -306,7 +330,7 @@ writeFileSync(join(OUT, '404.html'), page('uz').replace(/(href|src)="(?!https?:|
 
 writeFileSync(join(OUT, 'manifest.webmanifest'), JSON.stringify({
   name: "In'omjon Qo'chqorov", short_name: 'IQ', start_url: './', display: 'standalone',
-  background_color: '#08130f', theme_color: '#08130f',
+  background_color: '#050a08', theme_color: '#050a08',
   icons: [{ src: 'assets/favicon.svg', sizes: 'any', type: 'image/svg+xml' }],
 }));
 writeFileSync(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n${siteUrl ? `Sitemap: ${siteUrl}/sitemap.xml\n` : ''}`);

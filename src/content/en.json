@@ -10,7 +10,6 @@
   "ui": {
     "skip": "Skip to content",
     "menu": "Menu",
-    "theme": "Toggle theme",
     "language": "Language",
     "top": "Back to top",
     "rights": "All rights reserved."
@@ -30,7 +29,14 @@
     "tagline": "Knowledge through education, order through law, the future through values.",
     "ctaContact": "Get in touch",
     "ctaAbout": "Meet me",
-    "scroll": "Scroll"
+    "scroll": "Scroll",
+    "marquee": [
+      "Pedagogy",
+      "Law",
+      "Values",
+      "Education",
+      "Public administration"
+    ]
   },
   "about": {
     "kicker": "About",
@@ -42,18 +48,42 @@
     "kicker": "Focus",
     "title": "Areas of interest and work",
     "items": [
-      { "t": "Pedagogy & education", "d": "Modern teaching methods, working with pupils and students, approaches to upbringing." },
-      { "t": "Legal culture", "d": "Raising legal awareness and explaining legal knowledge simply and clearly." },
-      { "t": "Public administration law", "d": "Legal regulation of how public bodies and public administration operate." },
-      { "t": "National idea & values", "d": "National values, moral and spiritual education, and work with young people." }
+      {
+        "t": "Pedagogy & education",
+        "d": "Modern teaching methods, working with pupils and students, approaches to upbringing."
+      },
+      {
+        "t": "Legal culture",
+        "d": "Raising legal awareness and explaining legal knowledge simply and clearly."
+      },
+      {
+        "t": "Public administration law",
+        "d": "Legal regulation of how public bodies and public administration operate."
+      },
+      {
+        "t": "National idea & values",
+        "d": "National values, moral and spiritual education, and work with young people."
+      }
     ]
   },
   "education": {
     "kicker": "Education",
     "title": "Academic path",
     "items": [
-      { "year": "2025", "degree": "Master's degree", "school": "Tashkent State University of Law", "field": "Public Administration Law" },
-      { "year": "2024", "degree": "Bachelor's degree", "school": "Mirzo Ulugbek National University of Uzbekistan", "field": "Fundamentals of National Idea, Spirituality and Law" }
+      {
+        "year": "2025",
+        "degree": "Master's degree",
+        "school": "Tashkent State University of Law",
+        "field": "Public Administration Law",
+        "short": "TSUL"
+      },
+      {
+        "year": "2024",
+        "degree": "Bachelor's degree",
+        "school": "Mirzo Ulugbek National University of Uzbekistan",
+        "field": "Fundamentals of National Idea, Spirituality and Law",
+        "short": "NUUz"
+      }
     ]
   },
   "publications": {
