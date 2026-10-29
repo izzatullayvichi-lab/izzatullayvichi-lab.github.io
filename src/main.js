@@ -121,12 +121,27 @@
     }, { passive: true });
   }
 
+  /* ---------- colour theme ---------- */
+  let applyCols = () => {};
+  const metaTheme = $('meta[name="theme-color"]');
+  const palBtns = $$('.pal button');
+  const markPal = () => palBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pal === root.dataset.pal)));
+  markPal();
+  palBtns.forEach((b) => b.addEventListener('click', () => {
+    root.dataset.pal = b.dataset.pal;
+    store.set('pal', b.dataset.pal);
+    markPal();
+    applyCols();
+    if (metaTheme) metaTheme.content = getComputedStyle(root).getPropertyValue('--bg').trim();
+    if (reduce) window.dispatchEvent(new Event('resize'));
+  }));
+
   /* ---------- WebGL background: khatam energy lattice over emerald aurora ---------- */
   const canvas = $('#gl');
   const gl = canvas.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'low-power' });
   const VS = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
   const FS = `precision highp float;
-uniform vec2 R;uniform float T;uniform vec2 M;
+uniform vec2 R;uniform float T;uniform vec2 M;uniform vec3 uBg;uniform vec3 uAur;uniform vec3 uA;uniform vec3 uB;
 mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
 float box(vec2 p,float b){vec2 d=abs(p)-b;return length(max(d,0.))+min(max(d.x,d.y),0.);}
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
@@ -149,8 +164,8 @@ void main(){
   float dist=length(uv-ctr);
   float n=fbm(uv*1.4+vec2(T*.03,-T*.02));
   float n2=fbm(uv*2.2-vec2(T*.02,T*.04)+n*1.5);
-  vec3 emerald=vec3(.02,.22,.16),mint=vec3(.30,.95,.75),gold=vec3(.85,.68,.38);
-  vec3 col=vec3(.016,.035,.03);
+  vec3 emerald=uAur,mint=uA,gold=uB;
+  vec3 col=uBg;
   col+=emerald*smoothstep(.25,.95,n2)*(1.1-dist*.6);
   vec2 p=uv*3.6+mo*.05;p*=rot(T*.008);
   float l=lattice(p+vec2(T*.01,0.));
@@ -183,6 +198,19 @@ void main(){
         const uR = gl.getUniformLocation(prog, 'R');
         const uT = gl.getUniformLocation(prog, 'T');
         const uM = gl.getUniformLocation(prog, 'M');
+        const uBg = gl.getUniformLocation(prog, 'uBg');
+        const uAur = gl.getUniformLocation(prog, 'uAur');
+        const uA = gl.getUniformLocation(prog, 'uA');
+        const uB = gl.getUniformLocation(prog, 'uB');
+        applyCols = () => {
+          const cs = getComputedStyle(root);
+          const v = (n) => cs.getPropertyValue(n).split(',').map(Number);
+          gl.uniform3fv(uBg, v('--gl-bg'));
+          gl.uniform3fv(uAur, v('--gl-aur'));
+          gl.uniform3fv(uA, v('--gl-a'));
+          gl.uniform3fv(uB, v('--gl-b'));
+        };
+        applyCols();
         let w = 0, h = 0;
         const resize = () => {
           const s = Math.min(devicePixelRatio || 1, 1.5) * (innerWidth < 700 ? 0.6 : 0.75);

@@ -135,13 +135,13 @@ function page(lang) {
   };
 
   const head = `<!doctype html>
-<html lang="${lang}">
+<html lang="${lang}" data-pal="plum">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(t.meta.title)}</title>
 <meta name="description" content="${esc(t.meta.description)}">
-<meta name="theme-color" content="#050a08">
+<meta name="theme-color" content="#140506">
 <meta name="color-scheme" content="dark">
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="${base}manifest.webmanifest">
@@ -157,6 +157,7 @@ ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.pn
 <link rel="preload" href="${base}assets/fonts/manrope-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${base}assets/portrait-cut.webp" as="image" type="image/webp">
 <link rel="stylesheet" href="${base}assets/style.css?v=${VER}">
+<script>try{var p=localStorage.getItem('pal');document.documentElement.dataset.pal=p==='emerald'?'emerald':'plum'}catch(e){}</script>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>`;
 
@@ -172,6 +173,7 @@ ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.pn
       ${navItems.map(([k]) => `<a href="#${k}">${esc(t.nav[k])}</a>`).join('')}
     </nav>
     <div class="tools">
+      <div class="pal" role="group" aria-label="${esc(t.ui.palette)}"><button type="button" data-pal="plum" aria-label="Plum" aria-pressed="true" style="--c:#dd5fa9"></button><button type="button" data-pal="emerald" aria-label="Emerald" aria-pressed="false" style="--c:#4df2c0"></button></div>
       <div class="langs" role="group" aria-label="${esc(t.ui.language)}">
         ${LANGS.map((l) => `<a href="${href(l)}" hreflang="${l}" data-lang="${l}"${l === lang ? ' aria-current="true"' : ''}>${LANG_LABEL[l]}</a>`).join('')}
       </div>
@@ -224,7 +226,7 @@ ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.pn
 <section class="sec" id="about">
   <div class="wrap about">
     <figure class="photo reveal" id="photo">
-      <img src="${base}assets/office.webp" width="1500" height="1000" alt="" loading="lazy">
+      <img class="ph-plum" src="${base}assets/office-plum.webp" width="1500" height="1000" alt="" loading="lazy"><img class="ph-emerald" src="${base}assets/office-emerald.webp" width="1500" height="1000" alt="" loading="lazy">
       <i class="hud tl"></i><i class="hud tr"></i><i class="hud bl"></i><i class="hud br"></i>
       <figcaption><span class="dot"></span>${esc(t.name)}</figcaption>
     </figure>
@@ -333,7 +335,7 @@ writeFileSync(join(OUT, '404.html'), page('uz').replace(/(href|src)="(?!https?:|
 
 writeFileSync(join(OUT, 'manifest.webmanifest'), JSON.stringify({
   name: "In'omjon Qo'chqorov", short_name: 'IQ', start_url: './', display: 'standalone',
-  background_color: '#050a08', theme_color: '#050a08',
+  background_color: '#140506', theme_color: '#140506',
   icons: [{ src: 'assets/favicon.svg', sizes: 'any', type: 'image/svg+xml' }],
 }));
 writeFileSync(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n${siteUrl ? `Sitemap: ${siteUrl}/sitemap.xml\n` : ''}`);
