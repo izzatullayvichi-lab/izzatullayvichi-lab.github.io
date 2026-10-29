@@ -1,0 +1,86 @@
+{
+  "lang": "en",
+  "locale": "en_US",
+  "name": "In'omjon Qo'chqorov",
+  "initials": "IQ",
+  "meta": {
+    "title": "In'omjon Qo'chqorov — Educator & Legal Scholar",
+    "description": "In'omjon Qo'chqorov — educator and legal scholar. Personal website of a specialist in education, legal culture and public administration law."
+  },
+  "ui": {
+    "skip": "Skip to content",
+    "menu": "Menu",
+    "theme": "Toggle theme",
+    "language": "Language",
+    "top": "Back to top",
+    "rights": "All rights reserved."
+  },
+  "nav": {
+    "about": "About",
+    "focus": "Focus",
+    "education": "Education",
+    "publications": "Publications",
+    "awards": "Awards",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "hero": {
+    "eyebrow": "Educator · Lawyer",
+    "role": "Pedagogy, law and values",
+    "tagline": "Knowledge through education, order through law, the future through values.",
+    "ctaContact": "Get in touch",
+    "ctaAbout": "Meet me",
+    "scroll": "Scroll"
+  },
+  "about": {
+    "kicker": "About",
+    "title": "Where learning, law and upbringing meet",
+    "p1": "I am In'omjon Qo'chqorov, an educator and legal scholar. My work centres on education and upbringing, legal culture and questions of public administration.",
+    "p2": "I earned my bachelor's degree in “Fundamentals of National Idea, Spirituality and Law” at Mirzo Ulugbek National University of Uzbekistan, and my master's degree in “Public Administration Law” at Tashkent State University of Law."
+  },
+  "focus": {
+    "kicker": "Focus",
+    "title": "Areas of interest and work",
+    "items": [
+      { "t": "Pedagogy & education", "d": "Modern teaching methods, working with pupils and students, approaches to upbringing." },
+      { "t": "Legal culture", "d": "Raising legal awareness and explaining legal knowledge simply and clearly." },
+      { "t": "Public administration law", "d": "Legal regulation of how public bodies and public administration operate." },
+      { "t": "National idea & values", "d": "National values, moral and spiritual education, and work with young people." }
+    ]
+  },
+  "education": {
+    "kicker": "Education",
+    "title": "Academic path",
+    "items": [
+      { "year": "2025", "degree": "Master's degree", "school": "Tashkent State University of Law", "field": "Public Administration Law" },
+      { "year": "2024", "degree": "Bachelor's degree", "school": "Mirzo Ulugbek National University of Uzbekistan", "field": "Fundamentals of National Idea, Spirituality and Law" }
+    ]
+  },
+  "publications": {
+    "kicker": "Research",
+    "title": "Publications",
+    "open": "Open"
+  },
+  "awards": {
+    "kicker": "Achievements",
+    "title": "Awards & certificates"
+  },
+  "blog": {
+    "kicker": "Blog",
+    "title": "Thoughts on Instagram",
+    "text": "Short reflections on education, law and values — on my Instagram blog.",
+    "cta": "Follow on Instagram"
+  },
+  "contact": {
+    "kicker": "Contact",
+    "title": "Open to collaboration",
+    "text": "Questions, ideas or collaboration — feel free to reach out.",
+    "telegram": "Telegram",
+    "phone": "Phone",
+    "email": "Email",
+    "instagram": "Instagram"
+  },
+  "a11y": {
+    "photo": "Portrait of In'omjon Qo'chqorov"
+  }
+}

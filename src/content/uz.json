@@ -1,0 +1,86 @@
+{
+  "lang": "uz",
+  "locale": "uz_UZ",
+  "name": "In'omjon Qo'chqorov",
+  "initials": "IQ",
+  "meta": {
+    "title": "In'omjon Qo'chqorov — Pedagog va huquqshunos",
+    "description": "In'omjon Qo'chqorov — pedagog va huquqshunos. Ta'lim, huquqiy madaniyat va davlat boshqaruvi huquqi yo'nalishlarida faoliyat yurituvchi mutaxassisning shaxsiy sayti."
+  },
+  "ui": {
+    "skip": "Asosiy mazmunga o'tish",
+    "menu": "Menyu",
+    "theme": "Mavzuni almashtirish",
+    "language": "Til",
+    "top": "Tepaga",
+    "rights": "Barcha huquqlar himoyalangan."
+  },
+  "nav": {
+    "about": "Men haqimda",
+    "focus": "Yo'nalishlar",
+    "education": "Ta'lim",
+    "publications": "Ilmiy ishlar",
+    "awards": "Yutuqlar",
+    "blog": "Blog",
+    "contact": "Aloqa"
+  },
+  "hero": {
+    "eyebrow": "Pedagog · Huquqshunos",
+    "role": "Pedagogika, huquq va ma'naviyat",
+    "tagline": "Ta'lim orqali bilim, huquq orqali tartib, ma'naviyat orqali kelajak.",
+    "ctaContact": "Bog'lanish",
+    "ctaAbout": "Tanishish",
+    "scroll": "Pastga"
+  },
+  "about": {
+    "kicker": "Men haqimda",
+    "title": "Ilm, huquq va tarbiya uyg'unligi",
+    "p1": "Men In'omjon Qo'chqorov — pedagog va huquqshunosman. Faoliyatimning markazida ta'lim-tarbiya, huquqiy madaniyat va davlat boshqaruvi masalalari turadi.",
+    "p2": "Bakalavr darajasini Mirzo Ulug'bek nomidagi O'zbekiston Milliy universitetida «Milliy g'oya, ma'naviyat asoslari va huquq» yo'nalishida, magistr darajasini Toshkent davlat yuridik universitetida «Davlat boshqaruvi huquqi» yo'nalishida oldim."
+  },
+  "focus": {
+    "kicker": "Yo'nalishlar",
+    "title": "Qiziqish va faoliyat doirasi",
+    "items": [
+      { "t": "Pedagogika va ta'lim", "d": "Zamonaviy ta'lim usullari, o'quvchi va talabalar bilan ishlash, tarbiyaviy yondashuvlar." },
+      { "t": "Huquqiy madaniyat", "d": "Huquqiy ongni oshirish, huquqiy bilimlarni sodda va tushunarli yetkazish." },
+      { "t": "Davlat boshqaruvi huquqi", "d": "Davlat organlari faoliyati va boshqaruvni huquqiy tartibga solish masalalari." },
+      { "t": "Milliy g'oya va ma'naviyat", "d": "Milliy qadriyatlar, ma'naviy-axloqiy tarbiya va yoshlar bilan ishlash." }
+    ]
+  },
+  "education": {
+    "kicker": "Ta'lim",
+    "title": "Akademik yo'l",
+    "items": [
+      { "year": "2025", "degree": "Magistr", "school": "Toshkent davlat yuridik universiteti", "field": "Davlat boshqaruvi huquqi" },
+      { "year": "2024", "degree": "Bakalavr", "school": "Mirzo Ulug'bek nomidagi O'zbekiston Milliy universiteti", "field": "Milliy g'oya, ma'naviyat asoslari va huquq" }
+    ]
+  },
+  "publications": {
+    "kicker": "Ilmiy faoliyat",
+    "title": "Ilmiy ishlar",
+    "open": "Ochish"
+  },
+  "awards": {
+    "kicker": "Yutuqlar",
+    "title": "Mukofotlar va sertifikatlar"
+  },
+  "blog": {
+    "kicker": "Blog",
+    "title": "Instagram'dagi fikrlar",
+    "text": "Ta'lim, huquq va ma'naviyat haqidagi qisqa mulohazalar — Instagram blogimda.",
+    "cta": "Instagram'da kuzatish"
+  },
+  "contact": {
+    "kicker": "Aloqa",
+    "title": "Hamkorlikka ochiqman",
+    "text": "Savol, taklif yoki hamkorlik bilan bemalol murojaat qiling.",
+    "telegram": "Telegram",
+    "phone": "Telefon",
+    "email": "Email",
+    "instagram": "Instagram"
+  },
+  "a11y": {
+    "photo": "In'omjon Qo'chqorovning portreti"
+  }
+}
