@@ -1,6 +1,7 @@
 // Zero-dependency static site builder: node build.mjs  ->  dist/
 import { readFileSync, writeFileSync, mkdirSync, cpSync, rmSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { createHash } from 'node:crypto';
 
 const SRC = 'src';
 const OUT = 'dist';
@@ -16,6 +17,8 @@ const siteUrl = (process.env.SITE_URL ?? site.siteUrl ?? '').replace(/\/$/, '');
 const publications = json(join(SRC, 'data/publications.json'));
 const awards = json(join(SRC, 'data/awards.json'));
 const hasOg = existsSync(join(SRC, 'assets/og.png'));
+// cache-busting: any change to css/js/fonts.css changes the URL, so HTML and assets can never mismatch
+const VER = createHash('md5').update(read(join(SRC, 'styles.css')) + read(join(SRC, 'main.js')) + read(join(SRC, 'assets/fonts/fonts.css'))).digest('hex').slice(0, 8);
 
 /* ---------- ornament (eight-pointed star, "khatam") ---------- */
 const sq = (r, a0) =>
@@ -153,7 +156,7 @@ ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.pn
 <link rel="preload" href="${base}assets/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${base}assets/fonts/manrope-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${base}assets/portrait-cut.webp" as="image" type="image/webp">
-<link rel="stylesheet" href="${base}assets/style.css">
+<link rel="stylesheet" href="${base}assets/style.css?v=${VER}">
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>`;
 
@@ -303,7 +306,7 @@ ${header}
 ${hero}${about}${focus}${education}${pubs}${awd}${blog}${contact}
 </main>
 ${footer}
-<script src="${base}assets/main.js" defer></script>
+<script src="${base}assets/main.js?v=${VER}" defer></script>
 </body>
 </html>
 `;
