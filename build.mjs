@@ -16,6 +16,7 @@ const site = json(join(SRC, 'data/site.json'));
 const siteUrl = (process.env.SITE_URL ?? site.siteUrl ?? '').replace(/\/$/, '');
 const publications = json(join(SRC, 'data/publications.json'));
 const awards = json(join(SRC, 'data/awards.json'));
+const PALS = [['mono', '#0a0a0a', '#f0eee9'], ['plum', '#3a0420', '#e0609f'], ['emerald', '#0d2b23', '#d9b46a'], ['midnight', '#10224d', '#5b8cff'], ['ember', '#4a2a1c', '#ff7a3d']];
 const hasOg = existsSync(join(SRC, 'assets/og.png'));
 // cache-busting: any change to css/js/fonts.css changes the URL, so HTML and assets can never mismatch
 const VER = createHash('md5').update(read(join(SRC, 'styles.css')) + read(join(SRC, 'main.js')) + read(join(SRC, 'assets/fonts/fonts.css'))).digest('hex').slice(0, 8);
@@ -135,13 +136,13 @@ function page(lang) {
   };
 
   const head = `<!doctype html>
-<html lang="${lang}" data-pal="plum">
+<html lang="${lang}" data-pal="mono">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(t.meta.title)}</title>
 <meta name="description" content="${esc(t.meta.description)}">
-<meta name="theme-color" content="#140506">
+<meta name="theme-color" content="#0a0a0a">
 <meta name="color-scheme" content="dark">
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="${base}manifest.webmanifest">
@@ -157,7 +158,7 @@ ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.pn
 <link rel="preload" href="${base}assets/fonts/manrope-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${base}assets/portrait-cut.webp" as="image" type="image/webp">
 <link rel="stylesheet" href="${base}assets/style.css?v=${VER}">
-<script>try{var p=localStorage.getItem('pal');document.documentElement.dataset.pal=p==='emerald'?'emerald':'plum'}catch(e){}</script>
+<script>try{var p=localStorage.getItem('pal');document.documentElement.dataset.pal=['mono','plum','emerald','midnight','ember'].indexOf(p)>-1?p:'mono'}catch(e){}</script>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>`;
 
@@ -173,7 +174,7 @@ ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.pn
       ${navItems.map(([k]) => `<a href="#${k}">${esc(t.nav[k])}</a>`).join('')}
     </nav>
     <div class="tools">
-      <div class="pal" role="group" aria-label="${esc(t.ui.palette)}"><button type="button" data-pal="plum" aria-label="Plum" aria-pressed="true" style="--c:#dd5fa9"></button><button type="button" data-pal="emerald" aria-label="Emerald" aria-pressed="false" style="--c:#4df2c0"></button></div>
+      <div class="pal" id="pal"><button class="pal-btn" id="pal-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="${esc(t.ui.palette)}"><i class="sw"></i></button><div class="pal-menu glass" role="group" aria-label="${esc(t.ui.palette)}">${PALS.map(([k, c1, c2]) => `<button type="button" data-pal="${k}" aria-pressed="${k === 'mono'}" style="--c1:${c1};--c2:${c2}"><i class="sw"></i>${esc(t.ui.palettes[k])}</button>`).join('')}</div></div>
       <div class="langs" role="group" aria-label="${esc(t.ui.language)}">
         ${LANGS.map((l) => `<a href="${href(l)}" hreflang="${l}" data-lang="${l}"${l === lang ? ' aria-current="true"' : ''}>${LANG_LABEL[l]}</a>`).join('')}
       </div>
@@ -223,10 +224,10 @@ ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.pn
 </div></div>`;
 
   const about = `
-<section class="sec" id="about">
+<section class="sec paper" id="about">
   <div class="wrap about">
     <figure class="photo reveal" id="photo">
-      <img class="ph-plum" src="${base}assets/office-plum.webp" width="1500" height="1000" alt="" loading="lazy"><img class="ph-emerald" src="${base}assets/office-emerald.webp" width="1500" height="1000" alt="" loading="lazy">
+      ${PALS.map(([k]) => `<img class="ph-${k}" src="${base}assets/office-${k}.webp" width="1500" height="1000" alt="" loading="lazy">`).join('')}
       <i class="hud tl"></i><i class="hud tr"></i><i class="hud bl"></i><i class="hud br"></i>
       <figcaption><span class="dot"></span>${esc(t.name)}</figcaption>
     </figure>
@@ -249,7 +250,7 @@ ${siteUrl && hasOg ? `<meta property="og:image" content="${siteUrl}/assets/og.pn
 </section>`;
 
   const education = `
-<section class="sec" id="education">
+<section class="sec paper" id="education">
   <div class="wrap">
     ${sectionHead('education')}
     <ol class="timeline" id="timeline">
@@ -335,7 +336,7 @@ writeFileSync(join(OUT, '404.html'), page('uz').replace(/(href|src)="(?!https?:|
 
 writeFileSync(join(OUT, 'manifest.webmanifest'), JSON.stringify({
   name: "In'omjon Qo'chqorov", short_name: 'IQ', start_url: './', display: 'standalone',
-  background_color: '#140506', theme_color: '#140506',
+  background_color: '#0a0a0a', theme_color: '#0a0a0a',
   icons: [{ src: 'assets/favicon.svg', sizes: 'any', type: 'image/svg+xml' }],
 }));
 writeFileSync(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n${siteUrl ? `Sitemap: ${siteUrl}/sitemap.xml\n` : ''}`);

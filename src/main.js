@@ -124,16 +124,28 @@
   /* ---------- colour theme ---------- */
   let applyCols = () => {};
   const metaTheme = $('meta[name="theme-color"]');
-  const palBtns = $$('.pal button');
-  const markPal = () => palBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pal === root.dataset.pal)));
+  const pal = $('#pal');
+  const palBtn = $('#pal-btn');
+  const palBtns = $$('.pal-menu button');
+  const markPal = () => {
+    palBtns.forEach((b) => {
+      const on = b.dataset.pal === root.dataset.pal;
+      b.setAttribute('aria-pressed', String(on));
+      if (on) { palBtn.style.setProperty('--c1', b.style.getPropertyValue('--c1')); palBtn.style.setProperty('--c2', b.style.getPropertyValue('--c2')); }
+    });
+  };
   markPal();
+  const setPalMenu = (open) => { pal.classList.toggle('open', open); palBtn.setAttribute('aria-expanded', String(open)); };
+  palBtn.addEventListener('click', (e) => { e.stopPropagation(); setPalMenu(!pal.classList.contains('open')); });
+  document.addEventListener('click', (e) => { if (!pal.contains(e.target)) setPalMenu(false); });
+  addEventListener('keydown', (e) => e.key === 'Escape' && setPalMenu(false));
   palBtns.forEach((b) => b.addEventListener('click', () => {
     root.dataset.pal = b.dataset.pal;
     store.set('pal', b.dataset.pal);
     markPal();
     applyCols();
     if (metaTheme) metaTheme.content = getComputedStyle(root).getPropertyValue('--bg').trim();
-    if (reduce) window.dispatchEvent(new Event('resize'));
+    setPalMenu(false);
   }));
 
   /* ---------- WebGL background: khatam energy lattice over emerald aurora ---------- */

@@ -13,7 +13,14 @@
     "language": "Language",
     "top": "Back to top",
     "rights": "All rights reserved.",
-    "palette": "Colour theme"
+    "palette": "Colour theme",
+    "palettes": {
+      "mono": "Black & white",
+      "plum": "Plum",
+      "emerald": "Emerald & gold",
+      "midnight": "Midnight",
+      "ember": "Terracotta"
+    }
   },
   "nav": {
     "about": "About",

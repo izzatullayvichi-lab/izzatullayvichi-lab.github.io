@@ -13,7 +13,14 @@
     "language": "Til",
     "top": "Tepaga",
     "rights": "Barcha huquqlar himoyalangan.",
-    "palette": "Rang mavzusi"
+    "palette": "Rang mavzusi",
+    "palettes": {
+      "mono": "Qora-oq",
+      "plum": "Bordo",
+      "emerald": "Zumrad va oltin",
+      "midnight": "Tungi ko'k",
+      "ember": "Terrakota"
+    }
   },
   "nav": {
     "about": "Men haqimda",
